@@ -161,12 +161,12 @@ section   .data
     ; xlen dd $ - x
     ; y dd 0, 10, 1, 9, 2, 8, 5 ; 35
     ; ylen dd $ - y
-    format db "%d", 0xA, 0xD
-    format_str db "%s", 0xA, 0xD
+    format db "Result: %d", 0xA, 0xD
     err_msg dd "Invalid arrays lens"
+    format_str db "%s", 0xA, 0xD
     step dd 4
     filename db "data.txt", 0
-    format_num db "%d", 0
+    format_num db "%d"
     format_el db 0xA
 
 
