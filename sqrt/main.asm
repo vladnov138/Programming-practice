@@ -23,7 +23,7 @@ main:
 
 section   .data
     num dd 5.0
-    format db "%f", 0xA, 0xD
+    format db "sqrt: %f", 0xA, 0xD
 
 section .bss
     res resb 4
