@@ -18,4 +18,5 @@ kotlinc src/main/kotlin/Main.kt -include-runtime
 -d target/main.jar
 java -jar main.jar
 ```
-![alt coverage](https://github.com/vladnov138/Programming practice/to_infix/assets/coverage.jpg)
+## Покрытие
+![alt coverage](https://github.com/vladnov138/Programming-practice/blob/main/to_infix/assets/coverage.jpg)
