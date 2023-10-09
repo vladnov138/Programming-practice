@@ -21,4 +21,5 @@ java -jar ./target/main.jar
 ```
 make run
 ```
-![alt coverage](https://github.com/vladnov138/Programming practice/to_infix/assets/coverage.jpg)
+## Покрытие
+![alt coverage](https://github.com/vladnov138/Programming-practice/blob/main/to_infix/assets/coverage.jpg)
