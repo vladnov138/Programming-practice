@@ -21,6 +21,7 @@ fun toInfix(prefix: String): String {
 }
 
 fun main() {
+    println("Введите префиксное выражение")
     val line = readLine() ?: ""
     try {
         println(toInfix(line))
