@@ -4,18 +4,21 @@
 ```
 mvn test
 ```
-Запуск тестов с генерацией покрытия:
+или через make:
 ```
-mvn package
+make test
 ```
-Отчет искать в __target/site/jacoco/index.html__
+Отчет о покрытии искать в __target/site/jacoco/index.html__
 ## Запуск программы
 Есть два варианта запуска программы:
 1. IntelliJ Idea
 2. Воспользоваться kotlinc и java:
 ```
-kotlinc src/main/kotlin/Main.kt -include-runtime 
--d target/main.jar
-java -jar main.jar
+kotlinc src/main/kotlin/Main.kt -include-runtime -d target/main.jar
+java -jar ./target/main.jar
+```
+или через make:
+```
+make run
 ```
 ![alt coverage](https://github.com/vladnov138/Programming practice/to_infix/assets/coverage.jpg)
