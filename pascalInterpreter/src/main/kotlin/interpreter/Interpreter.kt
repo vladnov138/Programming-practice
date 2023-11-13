@@ -41,12 +41,22 @@ class Interpreter {
     fun visitNumber(number: PascalNumber): Float = number.token.value.toFloat()
 
     fun visitBinOp(node: BinOp): Float {
-        return when (node.op.value) {
-            "+" -> visit(node.left) + visit(node.right)
-            "-" -> visit(node.left) - visit(node.right)
-            "*" -> visit(node.left) * visit(node.right)
-            else -> visit(node.left) / visit(node.right)
+        return if (node.op.value == "+") {
+            visit(node.left) + visit(node.right)
+        } else if (node.op.value == "-") {
+            visit(node.left) - visit(node.right)
+        } else if (node.op.value == "*") {
+            visit(node.left) * visit(node.right)
+        } else {
+            visit(node.left) / visit(node.right)
         }
+
+//        when (node.op.value) {
+//            "+" -> return visit(node.left) + visit(node.right)
+//            "-" -> return visit(node.left) - visit(node.right)
+//            "*" -> return visit(node.left) * visit(node.right)
+//            else -> return visit(node.left) / visit(node.right)
+//        }
     }
 
     fun visitUnOp(node: UnOp): Float {

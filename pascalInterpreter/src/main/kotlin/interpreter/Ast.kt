@@ -8,9 +8,7 @@ data class BinOp(val left: Node, val op: Token, val right: Node) : Node()
 
 data class UnOp(val op: Token, val value: Node) : Node()
 
-data class Empty(private val value_: String = "") : Node() {
-    val value = ""
-}
+data class Empty(val value: String = "") : Node()
 
 data class Variable(val token: Token, val value: Node) : Node()
 

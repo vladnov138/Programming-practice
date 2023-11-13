@@ -31,7 +31,7 @@ class Lexer {
 
     fun number(): String {
         val result = ArrayList<Char>()
-        while (currentChar != null && (currentChar!!.isDigit() || currentChar == '.')) {
+        while (currentChar!!.isDigit() || currentChar == '.') {
             result.add(currentChar!!)
             forward()
         }
@@ -40,8 +40,7 @@ class Lexer {
 
     private fun variable(): String {
         val result = mutableListOf<Char>()
-        val isCorrect = true
-        while (currentChar != null && (currentChar!!.isLetter() || currentChar!!.isDigit())) {
+        while (currentChar!!.isLetter() || currentChar!!.isDigit()) {
             result.add(currentChar!!)
             forward()
         }
@@ -66,9 +65,8 @@ class Lexer {
                 }
                 if (result.joinToString("") == begin) {
                     return Token(TokenType.BEGIN, "BEGIN")
-                } else {
-                    throw SyntaxException("Bad token")
                 }
+                throw SyntaxException("Invalid variable")
             }
             if (currentChar.isDigit()) {
                 return Token(TokenType.NUMBER, number())
@@ -100,12 +98,11 @@ class Lexer {
                 while (this.currentChar!!.isWhitespace()) {
                     forward()
                 }
-                if ((this.currentChar ?: "") == '=') {
+                if (this.currentChar!! == '=') {
                     forward()
                     return Token(TokenType.ASSIGN, "=")
-                } else {
-                    throw SyntaxException("Invalid syntax")
                 }
+                throw SyntaxException("Invalid syntax")
             }
             if (currentChar == 'E') {
                 val end = "ND"
@@ -119,6 +116,7 @@ class Lexer {
                 if (result.joinToString("") == end) {
                     return Token(TokenType.END, "END")
                 }
+                throw SyntaxException("Invalid variable")
             }
             if (currentChar.isLetter()) {
                 return Token(TokenType.ID, variable())

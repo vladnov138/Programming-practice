@@ -3,17 +3,13 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class TestMain {
+class TestInterpreter {
     private lateinit var interpreter: Interpreter
 
     @BeforeEach
     fun setInterpreter() {
         interpreter = Interpreter()
     }
-
-    // given:
-    // when:
-    // then:
 
     @Test
     fun testBeginEnd() {
@@ -82,10 +78,10 @@ class TestMain {
         // given:
         val code = """
             BEGIN
-                y: = --2.3;
+                y2: = +--2.3;
             END.
         """.trimIndent()
-        val answer = "{y=2.3}"
+        val answer = "{y2=2.3}"
 
         // when:
         interpreter.eval(code)
@@ -108,8 +104,6 @@ class TestMain {
         // when:
 
         // then:
-
-        // when:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
@@ -128,8 +122,6 @@ class TestMain {
         // when:
 
         // then:
-
-        // when:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
@@ -148,8 +140,6 @@ class TestMain {
         // when:
 
         // then:
-
-        // when:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
@@ -161,15 +151,13 @@ class TestMain {
         // given:
         val code = """
             BEGIN
-                :=;
+                a:=);
             END.
         """.trimIndent()
         val expectedExceptionClassName = "SyntaxException"
         // when:
 
         // then:
-
-        // when:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
@@ -186,8 +174,6 @@ class TestMain {
         // when:
 
         // then:
-
-        // when:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
@@ -199,15 +185,13 @@ class TestMain {
         // given:
         val code = """
             BEGIN
-                a := b + 42;
+                a := b + 42
             END.
         """.trimIndent()
         val expectedExceptionClassName = "SyntaxException"
         // when:
 
         // then:
-
-        // when:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
@@ -226,8 +210,82 @@ class TestMain {
         // when:
 
         // then:
+        Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
+            { exception: Throwable? ->
+                Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
+            })
+    }
 
+
+    @Test
+    fun testWithoutEnd() {
+        // given:
+        val code = """
+            BEGIN
+        """.trimIndent()
+        val expectedExceptionClassName = "SyntaxException"
         // when:
+
+        // then:
+        Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
+            { exception: Throwable? ->
+                Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
+            })
+    }
+
+    @Test
+    fun testInvalidToken() {
+        // given:
+        val code = """
+            BEGIN
+                BEGIN :=3; END.
+            END.
+        """.trimIndent()
+        val expectedExceptionClassName = "SyntaxException"
+        // when:
+
+        // then:
+        Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
+            { exception: Throwable? ->
+                Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
+            })
+    }
+
+    @Test
+    fun testInvalidVariables() {
+        // given:
+        val codeBegin = """
+            BEGIN
+                Ba := 1
+            END.
+        """.trimIndent()
+        val codeEnd = """
+            BEGIN
+                Ea := 1
+            END.
+        """.trimIndent()
+        val expectedExceptionClassName = "SyntaxException"
+        // when:
+
+        // then:
+        Assertions.assertThatThrownBy { interpreter.eval(codeBegin) }.satisfies(
+            { exception: Throwable? ->
+                Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
+            })
+        Assertions.assertThatThrownBy { interpreter.eval(codeEnd) }.satisfies(
+            { exception: Throwable? ->
+                Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)
+            })
+    }
+
+    @Test
+    fun testInvalidNumber() {
+        // given:
+        val code = "                       "
+        val expectedExceptionClassName = "SyntaxException"
+        // when:
+
+        // then:
         Assertions.assertThatThrownBy { interpreter.eval(code) }.satisfies(
             { exception: Throwable? ->
                 Assertions.assertThat(exception!!.javaClass.getSimpleName()).isEqualTo(expectedExceptionClassName)

@@ -6,7 +6,7 @@ class Parser {
     private var currentToken: Token? = null
     private var lexer = Lexer()
 
-    fun check_token(type: TokenType) {
+    private fun check_token(type: TokenType) {
         if (currentToken?.type == type) {
             currentToken = lexer.next()
         } else {
@@ -16,7 +16,7 @@ class Parser {
 
     private fun factor(): Node {
         val token = currentToken
-        when (token?.type) {
+        when (token!!.type) {
             TokenType.NUMBER -> {
                 check_token(TokenType.NUMBER)
                 return PascalNumber(token)
@@ -59,7 +59,7 @@ class Parser {
 
     private fun statement_list(): Node {
         var result = statement()
-        if (currentToken?.type == TokenType.SEMI) {
+        if (currentToken!!.type == TokenType.SEMI) {
             check_token(TokenType.SEMI)
             result = Semi(result, statement_list())
         }
@@ -94,7 +94,7 @@ class Parser {
 
     private fun term(): Node {
         val result = factor()
-        while (currentToken != null && (currentToken!!.type == TokenType.OPERATOR)) {
+        while (currentToken!!.type == TokenType.OPERATOR) {
             if (currentToken!!.value !in "*/") {
                 break
             }
@@ -107,7 +107,7 @@ class Parser {
 
     private fun expr(): Node {
         var result = term()
-        while (currentToken != null && (currentToken!!.type == TokenType.OPERATOR)) {
+        while (currentToken!!.type == TokenType.OPERATOR) {
             val token = currentToken
             check_token(TokenType.OPERATOR)
             result = BinOp(result, token!!, term())

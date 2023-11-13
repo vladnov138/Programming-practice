@@ -1,5 +1,6 @@
 package org.example
 
+import Exceptions.SyntaxException
 import interpreter.Interpreter
 
 fun main() {
@@ -14,7 +15,7 @@ fun main() {
     try {
         val result = interpreter.eval(code.joinToString(""))
         print("out>${interpreter.variables}")
-    } catch (e: Exception) {
-        print("$e: ${e.message}")
+    } catch (e: SyntaxException) {
+        print("$e")
     }
 }
