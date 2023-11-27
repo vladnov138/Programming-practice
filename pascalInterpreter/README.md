@@ -24,4 +24,4 @@ java -jar ./target/main.jar
 make run
 ```
 ## Покрытие
-![alt coverage](https://github.com/vladnov138/Programming-practice/blob/main/pascalInterpreter/assets/coverage.jpg)
+![alt coverage](https://github.com/vladnov138/Programming-practice/blob/main/pascalInterpreter/assets/coverage.png)
