@@ -1,3 +1,4 @@
+import Exceptions.InvalidOperatorException
 import SpecialHashMap.SpecialHashMap
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -71,7 +72,9 @@ class TestSpecialHashMap {
             hashMapOf("1" to 10, "2" to 20),
             hashMapOf("(1, 5)" to 100, "(5, 5)" to 200, "(10, 5)" to 300),
             hashMapOf("(10, 5)" to 300),
-            hashMapOf("(1, 5, 3)" to 400)
+            hashMapOf("(1, 5, 3)" to 400),
+            hashMapOf(),
+            hashMapOf("1" to 10, "2" to 20)
         )
         // when
         val result = listOf(
@@ -79,10 +82,29 @@ class TestSpecialHashMap {
             map.ploc["<3"],
             map.ploc[">0, >0"],
             map.ploc[">=10, >0"],
-            map.ploc["<5, >=5, >=3"]
+            map.ploc["<5, >=5, >=3"],
+            map.ploc[">3"],
+            map.ploc["<=2"]
         )
         // then
         Assertions.assertThat(result)
             .isEqualTo(expected)
+    }
+
+    /**
+     * Тест для поля ploc.
+     * Проверяет исключение при некорректном операторе сравнения.
+     * @throws InvalidOperatorException при ошибке теста
+     */
+    @Test
+    fun testPlocFieldInvalidOperator() {
+        // given
+        map["value1"] = 1
+        map["value2"] = 2
+        map["value3"] = 3
+        map["1"] = 10
+        // when
+        // then
+        Assertions.assertThatThrownBy { map.ploc["+2"] }.isInstanceOf(InvalidOperatorException::class.java)
     }
 }
