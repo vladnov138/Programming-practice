@@ -1,7 +1,9 @@
-import SpecialHashMap.SpecialHashMap
+package org.example
+
+import org.example.SpecialHashMap.SpecialHashMap
 
 fun main() {
-    val map = SpecialHashMap()
+    val map = SpecialHashMap<Int>()
     map["value1"] = 1
     map["value2"] = 2
     map["value3"] = 3

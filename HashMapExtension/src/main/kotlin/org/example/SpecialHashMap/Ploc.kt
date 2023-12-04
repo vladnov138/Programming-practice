@@ -1,13 +1,13 @@
-package SpecialHashMap
+package org.example.SpecialHashMap
 
-import Exceptions.InvalidOperatorException
+import org.example.Exceptions.InvalidOperatorException
 
 /**
  * Класс для фильтрации ключей класса {@link SpecialHashMap.SpecialHashMap} по заданному условию
  *
  * @author Vladislav Novikov
  */
-class Ploc(private val specHashMap: SpecialHashMap) {
+class Ploc<V>(private val specHashMap: SpecialHashMap<V>) {
 
     /**
      * Перегрузка оператора-индексатора [].
@@ -16,15 +16,13 @@ class Ploc(private val specHashMap: SpecialHashMap) {
      * @return результат фильтрации
      * @throws InvalidOperatorException при невалидном условии
      */
-    operator fun get(condition: String): Map<String, Int> {
+    operator fun get(condition: String): Map<String, V> {
         val splittedCondition = condition
-            .replace("\\s", "")
+            .replace(Regex("[()\\s]"), "")
             .split(Regex("[A-Za-z,]"))
         return specHashMap.filterKeys {
             val splittedKey = it
-                .replace(")", "")
-                .replace("(", "")
-                .replace("\\s", "")
+                .replace(Regex("[()\\s]"), "")
                 .split(Regex("[A-Za-z,]"))
             if (splittedCondition.size != splittedKey.size) {
                 return@filterKeys false

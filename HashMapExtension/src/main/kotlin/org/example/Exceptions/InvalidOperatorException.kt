@@ -1,4 +1,4 @@
-package Exceptions
+package org.example.Exceptions
 
 /**
  * Класс-исключение на случай невалидного оператора сравнения

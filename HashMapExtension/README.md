@@ -15,6 +15,10 @@
 Скобки являются необязательными и игнорируются при выборе
 
 ## Запуск тестов (необходим Maven):
+Установка Jacoco:
+```
+mvn jacoco:prepare-agent install jacoco:report
+```
 ```
 mvn test
 ```
@@ -26,7 +30,12 @@ make test
 ## Запуск программы
 Есть два варианта запуска программы:
 1. IDE
-2. Воспользоваться kotlinc и java:
+2. Maven
+```
+mvn clean package
+java -jar ./target/main.jar
+```
+3. Воспользоваться kotlinc и java:
 ```
 kotlinc src/main/kotlin/Main.kt -include-runtime -d target/main.jar
 java -jar ./target/main.jar
@@ -35,3 +44,8 @@ java -jar ./target/main.jar
 ```
 make run
 ```
+__Примечание: main пустой, в репозитории
+только класс SpecialHashMap и его тесты__
+
+## Демонстрация:
+
