@@ -1,6 +1,6 @@
-import Exceptions.InvalidOperatorException
-import SpecialHashMap.SpecialHashMap
+import org.example.Exceptions.InvalidOperatorException
 import org.assertj.core.api.Assertions
+import org.example.SpecialHashMap.SpecialHashMap
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
  * @author Vladislav Novikov
  */
 class TestSpecialHashMap {
-    protected lateinit var map: SpecialHashMap
+    protected lateinit var map: SpecialHashMap<Int>
 
     /**
      * Инициализация map перед каждым тестом
