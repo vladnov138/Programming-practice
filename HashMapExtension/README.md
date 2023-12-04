@@ -49,3 +49,4 @@ __Примечание: main пустой, в репозитории
 
 ## Демонстрация:
 
+![image](https://github.com/vladnov138/Programming-practice/assets/113700660/08624b3b-4858-4477-ba89-aacb8fa1b1a4)
