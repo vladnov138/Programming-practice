@@ -71,7 +71,7 @@ def main():
             main()
         while True:
             try:
-                buffer = client.recv_string()
+                buffer = client.recv_string(zmq.NOBLOCK)
             except zmq.error.Again:
                 logger.critical("Buffer is unavailable. Trying again in 0.5 seconds.")
                 time.sleep(0.5)
