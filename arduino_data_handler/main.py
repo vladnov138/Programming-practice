@@ -64,7 +64,7 @@ def main():
     with connection:
         create_table(connection)
         try:
-            client = connect_socket("192.168.0.102:5555")
+            client = connect_socket("127.0.0.1:5555")
         except ZMQError:
             logger.critical("Unable to connect to socket. Trying to reconnect in 0.5 seconds")
             time.sleep(0.5)
